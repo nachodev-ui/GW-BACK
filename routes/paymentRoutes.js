@@ -1,9 +1,12 @@
 import express from 'express';
-import { createOrder } from '../controllers/paymentController.js';
+import { createOrder, getOrder, cancelOrder, refundOrder } from '../controllers/paymentController.js';
 
-const router = express.Router();
+const khipuRouter = express.Router();
 
-router.post('/create', createOrder);
+khipuRouter.post('/create', createOrder);  // POST /payments/create
+khipuRouter.get('/:paymentId', getOrder);  // GET /payments/:paymentId
+khipuRouter.delete('/:paymentId', cancelOrder);  // DELETE /payments/:paymentId
+khipuRouter.post('/:paymentId/refund', refundOrder);  // POST /payments/:paymentId/refund
 
-export default router;
+export default khipuRouter;
     
