@@ -3,8 +3,8 @@ import { transbankPayment, confirmTransaction, getTransaction } from '../control
 
 const transbankRouter  = express.Router();
 
-transbankRouter .post('/create', transbankPayment);
-transbankRouter .get('/get/:token', getTransaction);
-transbankRouter .put('/confirm/:token', confirmTransaction);
+transbankRouter.post('/create', transbankPayment);
+transbankRouter.get('/get/:token', getTransaction);
+transbankRouter.put('/confirm/:token', confirmTransaction);
 
 export default transbankRouter;
