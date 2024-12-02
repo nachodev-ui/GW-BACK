@@ -49,11 +49,9 @@ export const handleReturnUrl = async (req, res) => {
   try {
     const response = await confirmTransactionService(token_ws);
 
-    const redirectUrl = `exp://192.168.1.16:8081/--/finished?status=${response.status}&amount=${response.amount}&order=${response.buyOrder}&token=${token_ws}`
-
     // Verificar el estado de la transacción
     if (response.status === 'AUTHORIZED') {
-      return res.redirect(303, redirectUrl);
+      return res.status(200).json({ success: true, message: 'Transacción exitosa.', data: response });
     } else {
       return res.status(400).json({ success: false, message: 'Transacción no autorizada.', data: response });
     }
