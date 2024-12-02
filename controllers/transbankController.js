@@ -50,7 +50,7 @@ export const handleReturnUrl = async (req, res) => {
     const response = await confirmTransactionService(token_ws);
 
     if (response.status === 'AUTHORIZED') {
-      return res.redirect(`myapp://transbank/finished?token_ws=${token_ws}`);
+      return res.redirect(`exp:///192.168.1.16:8081/finished?token_ws=${token_ws}`);
     } else {
       return res.status(400).json({ success: false, message: 'Transacción no autorizada.', data: response });
     }
