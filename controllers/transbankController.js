@@ -29,6 +29,7 @@ export const confirmTransaction = async (req, res, next) => {
   try {
     const { token } = req.params;
 
+    // Llama al servicio
     const response = await confirmTransactionService(token);
 
     res.status(200).json(response);
@@ -50,9 +51,7 @@ export const handleReturnUrl = async (req, res) => {
 
     // Verificar el estado de la transacción
     if (response.status === 'AUTHORIZED') {
-      // Si la transacción es exitosa, redirigir al esquema de URL de la app
-      const redirectUrl = "exp://192.168.1.16:8081/finished";  // Usando exp:// para desarrollo
-      return res.redirect(redirectUrl);  // Redirige a la app en desarrollo
+      return res.status(200).json({ success: true, message: 'Transacción exitosa.', data: response });
     } else {
       return res.status(400).json({ success: false, message: 'Transacción no autorizada.', data: response });
     }
