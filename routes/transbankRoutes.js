@@ -8,6 +8,6 @@ transbankRouter.get('/get/:token', getTransaction);
 transbankRouter.put('/confirm/:token', confirmTransaction);
 
 // Ruta para el returnUrl
-transbankRouter.post('/finished', handleReturnUrl);
+transbankRouter.get('/finished', handleReturnUrl);
 
 export default transbankRouter;
