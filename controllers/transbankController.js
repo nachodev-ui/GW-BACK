@@ -40,7 +40,7 @@ export const confirmTransaction = async (req, res, next) => {
 }
 
 export const handleReturnUrl = async (req, res) => {
-  const { token_ws } = req.body;
+  const { token_ws } = req.query;
 
   if (!token_ws) {
     return res.status(400).json({ success: false, message: 'Token_ws no proporcionado.' });
