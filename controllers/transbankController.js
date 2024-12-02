@@ -51,7 +51,9 @@ export const handleReturnUrl = async (req, res) => {
 
     // Verificar el estado de la transacción
     if (response.status === 'AUTHORIZED') {
-      return res.status(200).json({ success: true, message: 'Transacción exitosa.', data: response });
+      const redirectUrl = `gasway://transaction?status=success&amount=${response.amount}&order=${response.buy_order}&token=${token_ws}`
+
+      return res.redirect(302, redirectUrl)
     } else {
       return res.status(400).json({ success: false, message: 'Transacción no autorizada.', data: response });
     }
