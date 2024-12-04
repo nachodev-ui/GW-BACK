@@ -7,7 +7,7 @@ export const tbkTransaction = async ({ buyOrder, sessionId, amount, returnUrl })
       buy_order: buyOrder,
       session_id: sessionId,
       amount,
-      return_url: returnUrl,
+      return_url: `${returnUrl}?token_ws={{token}}`,
     };
 
     // Realiza la solicitud POST a la API de Transbank
