@@ -52,3 +52,26 @@ export const confirmTransactionService = async (token) => {
   }
 }
 
+export const refundTransaction = async (token, amount) => {
+  try {
+    // Realiza la solicitud POST para reembolsar la transacción
+    const response = await transbankAPI.post(
+      `/rswebpaytransaction/api/webpay/v1.2/transactions/${token}/refunds`,
+      { amount }
+    );
+
+    // Retorna la respuesta formateada
+    return {
+      type: response.data.type,
+      authorizationCode: response.data.authorization_code,
+      authorizationDate: response.data.authorization_date,
+      nullifiedAmount: response.data.nullified_amount,
+      balance: response.data.balance,
+      responseCode: response.data.response_code
+    };
+  } catch (error) {
+    console.error('Error al reembolsar la transacción:', error.response?.data || error.message);
+    throw new Error('No se pudo procesar el reembolso. Verifica el token y el monto enviados.');
+  }
+}
+

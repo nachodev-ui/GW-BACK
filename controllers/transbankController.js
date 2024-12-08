@@ -1,4 +1,4 @@
-import { tbkTransaction, confirmTransactionService, getTbkTransaction } from '../services/transbankService.js';
+import { tbkTransaction, confirmTransactionService, getTbkTransaction, refundTransaction } from '../services/transbankService.js';
 
 export const transbankPayment = async (req, res, next) => {
   try {
@@ -56,6 +56,29 @@ export const handleReturnUrl = async (req, res) => {
   } catch (error) {
     console.error('Error en returnUrl:', error.message);
     return res.status(500).json({ success: false, message: 'Error procesando la transacción.' });
+  }
+};
+
+export const refundPayment = async (req, res, next) => {
+  try {
+    const { token } = req.params;
+    const { amount } = req.body;
+
+    if (!amount) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'El monto del reembolso es requerido.' 
+      });
+    }
+
+    const response = await refundTransaction(token, amount);
+    res.status(200).json({
+      success: true,
+      message: 'Reembolso procesado exitosamente',
+      data: response
+    });
+  } catch (error) {
+    next(error);
   }
 };
 
